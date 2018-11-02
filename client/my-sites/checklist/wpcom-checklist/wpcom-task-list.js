@@ -2,10 +2,10 @@
 /**
  * External dependencies
  */
-import { get } from 'lodash';
+import { get, memoize } from 'lodash';
 
 export default class WpcomTaskList {
-	constructor( taskStatuses, conditionalParams = {} ) {
+	constructor( taskStatuses, designType ) {
 		this.tasks = [];
 
 		const isCompleted = taskId => get( taskStatuses, [ taskId, 'completed' ], false );
@@ -23,13 +23,13 @@ export default class WpcomTaskList {
 		addTask( 'site_icon_set' );
 		addTask( 'blogdescription_set' );
 
-		if ( conditionalParams.designType === 'blog' ) {
+		if ( designType === 'blog' ) {
 			addTask( 'avatar_uploaded' );
 		}
 
 		addTask( 'contact_page_updated' );
 
-		if ( conditionalParams.designType === 'blog' ) {
+		if ( designType === 'blog' ) {
 			addTask( 'post_published' );
 		}
 
@@ -68,3 +68,7 @@ export default class WpcomTaskList {
 		};
 	}
 }
+
+export const getTaskList = memoize(
+	( taskStatuses, designType ) => new WpcomTaskList( taskStatuses, designType )
+);
