@@ -52,7 +52,14 @@ const config = {
 	] ),
 	env: {
 		production: {
-			plugins: [ [ '@automattic/babel-plugin-i18n-calypso', {} ] ],
+			plugins: [
+				[
+					'@automattic/babel-plugin-i18n-calypso',
+					{
+						output: 'calypso-strings.pot',
+					},
+				],
+			],
 		},
 		test: {
 			presets: [ [ '@babel/env', { targets: { node: 'current' } } ] ],
