@@ -51,6 +51,9 @@ const config = {
 		isCalypsoClient && './inline-imports.js',
 	] ),
 	env: {
+		production: {
+			plugins: [ [ '@automattic/babel-plugin-i18n-calypso', {} ] ],
+		},
 		test: {
 			presets: [ [ '@babel/env', { targets: { node: 'current' } } ] ],
 			plugins: [
